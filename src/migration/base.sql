@@ -35,6 +35,23 @@ create table if not exists mydb.matches
     foreign key (tourId) references tours(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS mydb.news
+(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    matchId INT NOT NULL,
+    tourId INT NOT NULL,
+    sportId INT NOT NULL,
+    recUpdatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (matchId) REFERENCES mydb.matches(id),
+    FOREIGN KEY (tourId) REFERENCES mydb.tours(id),
+    FOREIGN KEY (sportId) REFERENCES mydb.sports(id)
+);
+
+
 -- seed data
 insert ignore into mydb.sports (id, name) values (1, 'Cricket');
 insert ignore into mydb.sports (id, name) values (2, 'Football');
@@ -55,3 +72,14 @@ insert ignore into mydb.matches (name, tourId, format, startTime, endTime) value
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-12 10:00:00', '2023-06-12 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('IND vs WI', 3, 'ODI', '2023-06-14 10:00:00', '2023-06-14 23:00:00');
 insert ignore into mydb.matches (name, tourId, format, startTime, endTime) values ('KER vs JFC', 4, 'soccer', '2022-04-09 18:00:00', '2022-04-09 23:00:00');
+
+
+
+INSERT INTO mydb.news (title, description, matchId, tourId, sportId)
+VALUES ('Exciting Match Ahead', 'Get ready for an intense battle between the top teams.', 1, 1, 1);
+
+INSERT INTO mydb.news (title, description, matchId, tourId, sportId)
+VALUES ('Player Spotlight', 'Learn about the star player leading their team to victory.', 2, 1, 1);
+
+INSERT INTO mydb.news (title, description, matchId, tourId, sportId)
+VALUES ('Tour Update', 'Stay tuned for the latest updates from the ongoing tour.', 3, 2, 2);
