@@ -13,7 +13,7 @@ Problem 2
 Modify the endpoint /sport/tour/match to also return match's id, startTime and format
 
 Problem 3
-Requirement: News Support for Matches and Tours
+Requirement: News Support for Matches and Tour schr
 Functional Requirements:
     1. News can be created for a match or a tour.
     2. Each news created for a match also belongs to the corresponding tour.
