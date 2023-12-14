@@ -1,10 +1,22 @@
 const express = require('express');
-const News = require('../models/news');
+const News = require('../controllers/news');
+const {body, validationResult} = require('express-validator');
+
+const validateCreateNews = [body('title').notEmpty().withMessage('News title is required'),
+    body('description').notEmpty().withMessage('News description is required'),
+    body('matchId').optional().isInt({min: 1}).withMessage('Invalid matchId'),
+    body('tourId').optional().isInt({min: 1}).withMessage('Invalid tourId'),
+    body('sportId').optional().isInt({min: 1}).withMessage('Invalid sportId')];
+
 
 module.exports = function (app) {
-    app.route('/news').post(async (req, res, next) => {
+    app.route('/news').post(validateCreateNews, async (req, res, next) => {
         try {
             const newsData = req.body;
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({errors: errors.array()});
+            }
             const createdNews = await News.createNews(newsData);
             res.status(201).json({message: 'News created successfully', news: createdNews});
         } catch (error) {

@@ -3,8 +3,7 @@ const mysql = require('../lib/mysql');
 const createNews = async (newsData) => {
     const statement = `INSERT INTO news
                            (title, description, matchId, tourId, sportId)
-                       VALUES (?, ?, ?, ?, ?);
-    `;
+                       VALUES (?, ?, ?, ?, ?);`;
     const parameters = [newsData.title, newsData.description, newsData.matchId,
         newsData.tourId, newsData.sportId];
     return await mysql.query(statement, parameters);
