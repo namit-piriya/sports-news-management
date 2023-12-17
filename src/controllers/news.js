@@ -2,7 +2,6 @@ const News = require('../../src/models/news')
 const createNews = async (newsData) => {
     try {
         const news = await News.createNews(newsData)
-        console.log('news', news)
         if (news && news.affectedRows > 0) {
             return newsData
         }

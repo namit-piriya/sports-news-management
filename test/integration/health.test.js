@@ -1,19 +1,23 @@
 const request = require('supertest');
-const { app } = require('../../index');
+const {app} = require('../../server');
 
 describe('Integration Tests', () => {
-  let server;
+    let server;
 
-  beforeAll((done) => {
-    server = app.listen(done);
-  });
+    beforeAll( () => {
+        server = app.listen();
+    });
 
-  afterAll((done) => {
-    server.close(done);
-  });
+    afterAll((done) => {
+        server.close(() => {
+            console.log('Server closed');
+            done();
+        });
+    });
 
-  it('should return a 200 OK status code for GET request to /health', async () => {
-    const response = await request(server).get('/health');
-    expect(response.status).toBe(200);
-  });
+    it('should return a 200 OK status code for GET request to /health', async () => {
+        const response = await request(server).get('/health');
+        expect(response.status).toBe(200);
+    });
+
 });

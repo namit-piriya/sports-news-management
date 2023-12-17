@@ -17,13 +17,10 @@ describe('News Service', () => {
                 tourId: 456,
                 sportId: 789,
             };
-
             const mockNews = {
                 affectedRows: 1,
             };
-
             News.createNews.mockResolvedValueOnce(mockNews);
-
             const result = await newsService.createNews(newsData);
 
             expect(News.createNews).toHaveBeenCalledWith(newsData);
@@ -127,9 +124,7 @@ describe('News Service', () => {
             ];
 
             News.getNewsBySportId.mockResolvedValueOnce(mockNews);
-
             const result = await newsService.getNewsBySportId(sportId);
-
             expect(News.getNewsBySportId).toHaveBeenCalledWith(sportId);
             expect(result).toEqual(mockNews);
         });

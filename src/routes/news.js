@@ -28,6 +28,10 @@ module.exports = function (app) {
         try {
             const matchId = req.params.matchId;
             const newsByMatchId = await News.getNewsByMatchId(matchId);
+            if (!newsByMatchId?.length) {
+                return res.status(404).json({message: 'News not found'})
+            }
+
             res.json({message: `News for Match ID ${matchId}`, data: newsByMatchId});
         } catch (error) {
             return next(error);
@@ -38,6 +42,9 @@ module.exports = function (app) {
         try {
             const tourId = req.params.tourId;
             const newsByTourId = await News.getNewsByTourId(tourId);
+            if (!newsByTourId?.length) {
+                return res.status(404).json({message: 'News not found'})
+            }
             res.json({message: `News for Tour ID ${tourId}`, data: newsByTourId});
         } catch (error) {
             return next(error);
@@ -48,6 +55,9 @@ module.exports = function (app) {
         try {
             const sportId = req.params.sportId;
             const newsBySportId = await News.getNewsBySportId(sportId);
+            if (!newsBySportId?.length) {
+                return res.status(404).json({message: 'News not found'})
+            }
             res.json({message: `News for Sport ID ${sportId}`, data: newsBySportId});
         } catch (error) {
             return next(error);
